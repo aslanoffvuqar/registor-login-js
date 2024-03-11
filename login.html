@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="form_input_frist">
+        <h2>Login</h2>
+        <form action="#">
+            <label>Email</label>
+            <input type="text" id="email">
+            <label>Password</label>
+            <input type="password" id="Password">
+            <button type="button">login</button>
+        </form>
+        <a href="register.html"> Create acoount</a>
+    </div>
+
+
+
+    <script src="js/user.js"></script>
+    <script src="js/database.js"></script>
+
+    <script>
+        const loginButton = document.querySelector("button")
+
+        const databasa = new dataBase();
+
+        loginButton.addEventListener("click", function () {
+            const email = document.querySelector("#email").value
+            const password = document.querySelector("#Password").value
+            const user = databasa.getUserByEmail(email)
+            if (user == null || user == undefined) {
+                alert("username or password is not correct!")
+                return;
+            }
+            if (user.password != password) {
+                alert("username or password is not correct!")
+                return;
+            }
+
+            alert("sucasses!")
+
+            localStorage.loggedUser = JSON.stringify(user);
+            window.location.href = "index.html"
+        })
+    </script>
+</body>
+
+</html>
